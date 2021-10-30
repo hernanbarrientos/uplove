@@ -32,7 +32,7 @@ const Cadastro = () => {
         axios.post(`${BASE_URL}/sign-up`, form )
         .then((res)=> {
             clear()
-            alert('Parabéns! Agora você já pode efetuar login e navegar')
+            alert('Parabéns, cadastro efetuado com sucesso!')
             history.push("/login")        
         })
         

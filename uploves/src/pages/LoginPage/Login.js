@@ -29,12 +29,15 @@ const Login = () => {
     const signIn = () => {
         axios.post(`${BASE_URL}/sign-in`, form)
         .then((res)=>{
+            
             localStorage.setItem("token", res.data)
             clear()
-            history.push("/feed")
-             
+            history.push("/feed")             
         })
-        .catch((err)=> alert("Ops, tente novamente!"))
+        .catch((err)=> {
+            alert("Ops, tente novamente!")
+            clear()
+        })
 
     }
 
