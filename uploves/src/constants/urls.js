@@ -1,0 +1,1 @@
+export const BASE_URL = "https://segware-book-api.segware.io/api"
