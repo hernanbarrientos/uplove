@@ -23,6 +23,8 @@ export const IconLogo = styled.img`
     max-width: 3rem;
     padding: 4px;
     width: 70%;
+
+    
     
     
 `
