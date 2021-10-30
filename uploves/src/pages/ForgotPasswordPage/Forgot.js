@@ -8,8 +8,8 @@ import {
 import logo from "../../assets/upicon.png"
 import { TextField, Button } from '@material-ui/core'
 import useForm from "../../hooks/useForm"
-import { useHistory, useParams } from 'react-router'
-import {goToForgot, goToSignUp} from '../../routes/coordinator'
+import { useHistory } from 'react-router'
+import { goToSignUp} from '../../routes/coordinator'
 import axios from 'axios'
 import {BASE_URL} from "../../constants/urls"
 import useUnprotectedPage from '../../hooks/useUnprotectedPage'
@@ -17,12 +17,12 @@ import useUnprotectedPage from '../../hooks/useUnprotectedPage'
 
 const Forgot = () => {
     useUnprotectedPage()
-    const params = useParams()
-    console.log(params)
+    
 
 
     const history = useHistory()
     const [form, onChange, clear] = useForm({ username: ""})
+   
 
     const onSubmitForgot = (event) => {
         event.preventDefault()
@@ -31,15 +31,15 @@ const Forgot = () => {
     }
     
 
+
     const recuperarSenha = () => {
-        axios.get(`${BASE_URL}/forgot-password/{usename}`)
-        .then((res)=>{ console.log(res)
-            goToForgot(history, form)
-            // clear()
-            // history.push("/feed")
-             
+       
+        axios.get(`${BASE_URL}/forgot-password/${form.username}`)
+        .then((res)=>{alert(JSON.stringify(res.data))
+         clear()
+                     
         })
-        .catch((err)=> alert("Ops, tente novamente!"))
+        .catch((err)=> alert("Você não possui conta ainda, cadastre-se"))
 
     }
 
@@ -68,8 +68,6 @@ const Forgot = () => {
                         fullWidth
                         type={"submit"}
                         variant={"contained"}
-
-
                     >
                         Recuperar senha
                     </Button>
