@@ -11,6 +11,20 @@ export const LogoImage = styled.img`
     margin-top: 4%;
     max-width: 150px;
     width: 50vw;
+    opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 4s;
+    
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
         
 `
 export const InputsContainer = styled.div`
@@ -35,4 +49,20 @@ export const SignUpButtonContainer = styled.div`
     max-width: 350px;
     margin-top: 1%;
     width: 80vw;
+`
+export const ModalFrame = styled.div`
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    backdrop-filter: blur(15px);
+    `
+
+export const ModalContent = styled.div`
+    width: 70vw;
+    height: 30vh;
+    background-color: #DEDDFF;
 `

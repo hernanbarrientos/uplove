@@ -1,45 +1,43 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
     ScreenContainer,
     LogoImage,
     InputsContainer,
-    SignUpButtonContainer
+    SignUpButtonContainer,
+    ModalFrame,
+    ModalContent
 } from './style'
 import logo from "../../assets/upicon.png"
 import { TextField, Button } from '@material-ui/core'
 import useForm from "../../hooks/useForm"
 import { useHistory } from 'react-router'
-import { goToSignUp} from '../../routes/coordinator'
+import { goToSignUp } from '../../routes/coordinator'
 import axios from 'axios'
-import {BASE_URL} from "../../constants/urls"
+import { BASE_URL } from "../../constants/urls"
 import useUnprotectedPage from '../../hooks/useUnprotectedPage'
+
 
 
 const Forgot = () => {
     useUnprotectedPage()
-    
-
-
     const history = useHistory()
-    const [form, onChange, clear] = useForm({ username: ""})
-   
+    const [form, onChange, clear] = useForm({ username: "" })
+    
 
     const onSubmitForgot = (event) => {
         event.preventDefault()
         recuperarSenha()
 
     }
-    
-
 
     const recuperarSenha = () => {
-       
+
         axios.get(`${BASE_URL}/forgot-password/${form.username}`)
-        .then((res)=>{alert(JSON.stringify(res.data))
-         clear()
-                     
-        })
-        .catch((err)=> alert("Você não possui conta ainda, cadastre-se"))
+            .then((res) => { console.log(res)
+                alert(JSON.stringify(res.data))
+                clear()
+            })
+            .catch((err) => alert("Você não possui conta ainda, cadastre-se"))
 
     }
 
@@ -59,7 +57,7 @@ const Forgot = () => {
                         required
                         type={"email"}
                     />
-                   
+
 
                     <Button
 
@@ -76,7 +74,7 @@ const Forgot = () => {
             </InputsContainer>
 
             <SignUpButtonContainer>
-            
+
 
 
                 <Button
