@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { BASE_URL } from '../../constants/urls'
 import useProtectedPage from '../../hooks/useProtectedPage'
 import {FeedListContainer, FeedListCardContainer } from "./style"
+import Post from '../../components/post/Post'
 
 
 const FeedPage = () => {    
@@ -11,11 +12,11 @@ const FeedPage = () => {
 
     const FeedCard = ({Usuario, comentario, likes, loves}) => {
         return (
-            <FeedListCardContainer>
+            <div>
             <h3>{Usuario}</h3>
             <p>{comentario}</p>
             <p>{likes} {loves}</p>
-            </FeedListCardContainer>
+            </div>
         )
     }
 
@@ -42,14 +43,16 @@ const FeedPage = () => {
 
     return(
         <FeedListContainer>
+            <FeedListCardContainer>
             {feeds.map(feed =>
-            <FeedCard
+            <Post
                 key={feed.id}
-                Usuario={feed.author.username}
+                usuario={feed.author.username}
                 comentario={feed.content}
                 likes={feed.likes}
                 loves={feed.loves}
             />)}
+            </FeedListCardContainer>
         </FeedListContainer>
     )
 
