@@ -17,3 +17,6 @@ export const goToForgot = (history, id) => {
 export const goToFeed = (history) => {
     history.push("/feed")
 }
+export const goToPost = (history) => {
+    history.push("/post")
+}

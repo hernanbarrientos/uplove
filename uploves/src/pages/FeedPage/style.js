@@ -1,21 +1,20 @@
 import styled from "styled-components"
 
 export const FeedListContainer = styled.div`
-    height: 88vh;
-    width: 100%;
-    overflow-y: scroll;
+    align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-
-
+    min-height: 90%;
+    
+  
 `
 export const FeedListCardContainer = styled.div`
-
+    align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
-    margin-top: 4%;
+    margin-top: 3%;
+
+   
 `

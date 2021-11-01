@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
     ScreenContainer,
     LogoImage,
@@ -12,7 +12,7 @@ import axios from "axios"
 import { BASE_URL } from '../../constants/urls'
 import { useHistory } from 'react-router'
 import useUnprotectedPage from '../../hooks/useUnprotectedPage'
-
+import { CircularProgress } from '@material-ui/core'
 
 
 const Cadastro = () => {
@@ -21,24 +21,27 @@ const Cadastro = () => {
     const history = useHistory()
     
     const [form, onChange, clear] = useForm({ username: "", password: "" })
+    const [isLoading, setIsLoading] = useState(false)
 
     const onSubmitCadastro = (event) => {
         event.preventDefault()
         signUp()
-
+        setIsLoading(true)
     }
 
     const signUp = () => {
         axios.post(`${BASE_URL}/sign-up`, form )
         .then((res)=> {
             clear()
+            setIsLoading(false)
             alert('Parabéns, cadastro efetuado com sucesso!')
             history.push("/login")        
         })
         
-        .catch((err)=>{
-            alert(`Ocorreu um erro com seu cadastro. Tente novamente mais tarde`)
+        .catch((err)=>{            
             clear()
+            setIsLoading(false)
+            alert(`Ocorreu um erro com seu cadastro. Tente novamente mais tarde`)
         })
 
     }    
@@ -54,12 +57,12 @@ const Cadastro = () => {
                         name={"username"}
                         value={form.username}
                         onChange={onChange}
-                        label={"E-mail"}
+                        label={"Usuário"}
                         variant={"outlined"}
                         fullWidth
                         margin={"dense"}
                         required
-                        type={"email"}
+                        type={"text"}
                     />
                     <TextField
                         name={"password"}
@@ -82,7 +85,7 @@ const Cadastro = () => {
                         variant={"contained"}
 
                     >
-                        Cadastre-se
+                       {isLoading ? <CircularProgress color={"inherit"} size={24} /> : <> Cadastre-se </> }
                     </Button>
 
                 </form>

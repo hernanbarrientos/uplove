@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
     ScreenContainer,
     LogoImage,
@@ -13,16 +13,24 @@ import {goToForgot, goToSignUp} from '../../routes/coordinator'
 import axios from 'axios'
 import {BASE_URL} from "../../constants/urls"
 import useUnprotectedPage from '../../hooks/useUnprotectedPage'
+import { CircularProgress } from '@material-ui/core'
+
 
 
 const Login = () => {
     useUnprotectedPage()
     const history = useHistory()
     const [form, onChange, clear] = useForm({ username: "", password: "" })
+    const [isLoading, setIsLoading] = useState(false)
+
+    const refresh = () =>{
+        window.location.reload()
+    } 
 
     const onSubmitLogin = (event) => {
         event.preventDefault()
         signIn()
+        setIsLoading(true)
 
     }
 
@@ -32,11 +40,16 @@ const Login = () => {
             
             localStorage.setItem("token", res.data)
             clear()
-            history.push("/feed")             
+            setIsLoading(false)
+            refresh()
+            history.push("/feed")
+            
+                         
         })
         .catch((err)=> {
             alert("Ops, tente novamente!")
             clear()
+            setIsLoading(false)
         })
 
     }
@@ -50,12 +63,12 @@ const Login = () => {
                         name={"username"}
                         value={form.username}
                         onChange={onChange}
-                        label={"E-mail"}
+                        label={"Usuário"}
                         variant={"outlined"}
                         fullWidth
                         margin={"dense"}
                         required
-                        type={"email"}
+                        type={"text"}
                     />
                     <TextField
                         name={"password"}
@@ -79,7 +92,7 @@ const Login = () => {
 
 
                     >
-                        Entrar
+                      {isLoading ? <CircularProgress color={"inherit"} size={24} /> : <> Entrar </> }
                     </Button>
 
                 </form>
@@ -94,7 +107,7 @@ const Login = () => {
                     onClick={() => goToForgot(history)}
                     type={"submit"}
                     >
-                    <h6>Esqueceu a senha? Clique aqui</h6>
+                    <h6> {isLoading ? <CircularProgress color={"inherit"} size={24} /> : <> Esqueceu a senha? Clique aqui </> }</h6>
                 </Button>
             
 
@@ -106,7 +119,7 @@ const Login = () => {
                     onClick={() => goToSignUp(history)}
                     type={"submit"}
                     variant={"text"}>
-                    Não possui conta? Cadastre-se
+                    {isLoading ? <CircularProgress color={"inherit"} size={24} /> : <> Não possui conta? Cadastre-se </> }
                 </Button>
             </SignUpButtonContainer>
         </ScreenContainer>

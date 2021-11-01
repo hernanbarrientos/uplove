@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {
     ScreenContainer,
     LogoImage,
@@ -12,6 +12,7 @@ import axios from "axios"
 import { BASE_URL } from '../../constants/urls'
 import { useHistory } from 'react-router'
 import useProtectedPage from '../../hooks/useProtectedPage'
+import { CircularProgress } from '@material-ui/core'
 
 
 const Post = () => {
@@ -21,10 +22,12 @@ const Post = () => {
     const history = useHistory()
     
     const [form, onChange, clear] = useForm({ content: ""})
+    const [isLoading, setIsLoading] = useState(false)
 
     const onSubmitCadastro = (event) => {
         event.preventDefault()
         createPost()
+        setIsLoading(true)
 
     }
 
@@ -36,15 +39,17 @@ const Post = () => {
         } )
         .then((res)=> {            
             clear()
+            setIsLoading(false)
            if( window.confirm('Mensagem criada com sucesso! Deseja voltar ao Feed?')) {
             history.push("/feed") 
            }
                    
         })
         
-        .catch((err)=>{
-            alert(`Ocorreu um erro com sua mensagem e ela não foi enviada`)
+        .catch((err)=>{           
             clear()
+            setIsLoading(false)
+            alert(`Ocorreu um erro com sua mensagem e ela não foi enviada`)
         })
 
     }    
@@ -82,7 +87,7 @@ const Post = () => {
                     variant={"contained"}
 
                 >
-                    Enviar
+                   {isLoading ? <CircularProgress color={"inherit"} size={24} /> : <> Enviar </> }
                 </Button>
 
             </form>

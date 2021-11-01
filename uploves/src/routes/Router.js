@@ -6,7 +6,8 @@ import Feed from '../pages/FeedPage/Feed'
 import Forgot from '../pages/ForgotPasswordPage/Forgot'
 import SignUp from '../pages/SignUpPage/SignUp'
 import ErrorPage from '../pages/ErrorPage/ErrorPage'
-import Header from '../components/Header';
+import Header from '../components/header/Header';
+import Post from '../pages/Post/Post'
 
 
 const Router = () => {
@@ -28,6 +29,9 @@ const Router = () => {
                 </Route>
                 <Route exact path="/feed">
                     <Feed />
+                </Route>
+                <Route exact path="/post">
+                    <Post />
                 </Route>
                 <Route>
                     <ErrorPage />
