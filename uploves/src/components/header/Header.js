@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import { StyledToolbar, IconLogo, HeaderContainer } from './style';
 import Button from '@material-ui/core/Button';
@@ -16,8 +16,8 @@ const Header = () => {
   const history = useHistory()
 
 
-  const [rightButtonText, setRightButtonText] = useState(token ? "Logout" : "Login")
-
+  
+  const rightButtonText = token ? "Logout" : "Login"
 
   const logout = () => {
     localStorage.removeItem("token")
@@ -28,8 +28,7 @@ const Header = () => {
   const rightButtonAction = () => {
 
     if (token) {
-      logout()
-      setRightButtonText("Login")
+      logout()      
       goToLogin(history)
     } else {
       goToLogin(history)
